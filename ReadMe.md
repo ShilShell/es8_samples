@@ -65,6 +65,17 @@ In the above example getEmployeeObject() method there are 3 parameters id, name 
 **It is always better to avoid extra/trailing space from the method**
 
 ## Object.getOwnPropertyDescriptors
+In JavaScript/ES every property will have behaviour such as writable, enumerable, configurable etc. To know about those behaviours/settings new method *Object.getOwnPropertyDescriptors(object)* has been included. Here is the example
+ 
+```javascript
+var department = { id: 4, name: 'Finance' };
+console.log(Object.getOwnPropertyDescriptors(department));
+//{
+//    id: { value: 4, writable: true, enumerable: true, configurable: true }, 
+//    name: { value: 'Finance', writable: true, enumerable: true, configurable: true }
+//};
+```
+
 ## Typed Arrays
 
 Typed Arrays are Arrays which accepts only a specific datatype. There are Integer, Unsigned Integer and Float type arrays of various size. The below are the various newly introduced arrays of ES8. 
@@ -102,23 +113,30 @@ console.log(array[0]);//-128
 **Uint8Array**
 
 ```javascript
-var array = new Uint8Array([255, 256, 0, -1]);
+var array = new Uint8Array([255, 256, 257, 0, -1, -2]);
 console.log(array[0]);//255
 console.log(array[1]);//0
-console.log(array[2]);//0
-console.log(array[3]);//255
+console.log(array[2]);//1
+console.log(array[3]);//0
+console.log(array[4]);//255
+console.log(array[5]);//254
 
 //The Unsigned Int8 min(0) and max(255)
 ```
+From the above example we can see that if you assign 256 it is considered as 0. In short modulus of 256%256 is 0, 257%256  is 1
 
 **Uint8ClampedArray**
 
 ```javascript
-var array = new Uint8ClampedArray([255, 256, 0, -1]);
+var array = new Uint8ClampedArray([255, 256, 257, 0, -1, -2]);
 console.log(array[0]);//255
 console.log(array[1]);//255
-console.log(array[2]);//0
+console.log(array[2]);//255
 console.log(array[3]);//0
+console.log(array[4]);//0
+console.log(array[5]);//0
 
 //The Unsigned Int8 min(0) and max(255)
 ```
+
+From the above example we can see that if you assign anything greater than 255 is considered as 255 and anything below is 0
